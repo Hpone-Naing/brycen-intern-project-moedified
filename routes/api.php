@@ -28,3 +28,4 @@ Route::get("projects/all", [ProjectAssignmentController::class, "getAllProjects"
 
 # add new feature
 Route::get("employees/get-active-employees", [EmployeeController::class, "getActiveEmployees"]);
+Route::get("employees/get-passwords-request-pending-employees/{currentLoginEmployeeId}", [EmployeeController::class, "getInProgressToResetPasswordList"]);

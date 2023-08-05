@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProjectAssignmentController;
 
@@ -54,6 +55,15 @@ Route::get("create-project-assignments", [ProjectAssignmentController::class, "g
 Route::get("request-forget-passwords-forms", [PasswordResetController::class, "getPasswordResetForm"]);
 Route::post("request-reset-passwords", [PasswordResetController::class, "requestResetPassword"]);
 Route::post("reset-passwords", [PasswordResetController::class, "resetPassword"]);
+Route::post("members-passwords-reset", [PasswordResetController::class, "memberPasswordReset"]);
+Route::get("pending-reset-password-list-form", [PasswordResetController::class, "getPendingPasswordResetEmployeesForm"]);
+
+Route::get("sendbasicemail", [MailController::class, "basic_email"]);
+Route::get("sendhtmlemail", [MailController::class, "html_email"]);
+Route::get("sendattachmentemail", [MailController::class, "attachment_email"]);
+
+
+
 
 
 

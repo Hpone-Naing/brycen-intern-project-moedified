@@ -41,54 +41,56 @@ $loggedInUserId = request()->session()->get('logedinEmployeeId')
         <div class="card">
             <h5 class="card-header">Employee List</h5>
             <div class="card-body">
-
                 <div class="table-responsive text-nowrap">
-                <div class="d-flex justify-content-end mb-2">
-                    <!-- screen size width greater than 428px-->
-                    <a href="#" class="btn rounded-pill btn-outline-primary me-2 original-btn btn-sm">
-                        <span class="fa fa-file-download" style="color: #5278be;"></span>&nbsp; Excel
-                    </a>
-                    <a href="#" class="btn rounded-pill btn-outline-primary original-btn btn-sm">
-                        <span class="fa fa-file-download" style="color: #5278be;"></span>&nbsp; PDF
-                    </a>
-                    <!-- !! screen size width greater than 428px !!-->
+                    <div class="row">
+                        <div class="col-lg-8 col-md-12 col-8 mb-8 d-flex justify-content-left mb-2">
+                            <ul class="nav nav-tabs nav-fill" role="tablist">
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-home" aria-controls="navs-justified-home" aria-selected="true">
+                                        <i class="tf-icons bx bx-home"></i> Home
+                                        <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger">3</span>
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-profile" aria-controls="navs-justified-profile" aria-selected="false">
+                                        <i class="tf-icons bx bx-user"></i> Profile
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-messages" aria-controls="navs-justified-messages" aria-selected="false">
+                                        <i class="tf-icons bx bx-message-square"></i> Messages
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
 
-                    <!-- screen size width lower than 428px-->
-                    <a href="#" class="btn btn-icon btn-outline-primary me-2 btn-sm icon-btn">
-                        <span class="fa fa-file-download"></span>
-                    </a>
-                    <a href="#" class="btn btn-icon btn-outline-primary me-2 btn-sm icon-btn">
-                        <span class="fa fa-file-download"></span>
-                    </a>
+                        <div class="col-lg-4 col-md-12 col-4 mb-4 d-flex justify-content-end mb-2">
+                            <!-- screen size width greater than 428px-->
+                            <a href="#" class="btn rounded-pill btn-outline-primary me-2 original-btn btn-sm">
+                                <span class="fa fa-file-download" style="color: #5278be;"></span>&nbsp; Excel
+                            </a>
+                            <a href="#" class="btn rounded-pill btn-outline-primary original-btn btn-sm">
+                                <span class="fa fa-file-download" style="color: #5278be;"></span>&nbsp; PDF
+                            </a>
+                            <!-- !! screen size width greater than 428px !!-->
 
-                    <!-- <a href="#" class="icon-btn">
-                        <span class="fa fa-file-download"></span>
-                    </a>
-                    <a href="#" class="icon-btn">
-                        <span class="fa fa-file-download" style="color: #5278be;"></span>
-                    </a> -->
-                    <!-- !! screen size width lower than 428px !!-->
-                </div>
-                <div class="d-flex justify-content-left mb-2">
-                        <ul class="nav nav-tabs nav-fill" role="tablist">
-                            <li class="nav-item">
-                                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-home" aria-controls="navs-justified-home" aria-selected="true">
-                                    <i class="tf-icons bx bx-home"></i> Home
-                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger">3</span>
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-profile" aria-controls="navs-justified-profile" aria-selected="false">
-                                    <i class="tf-icons bx bx-user"></i> Profile
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-messages" aria-controls="navs-justified-messages" aria-selected="false">
-                                    <i class="tf-icons bx bx-message-square"></i> Messages
-                                </button>
-                            </li>
-                        </ul>
-                </div>
+                            <!-- screen size width lower than 428px-->
+                            <a href="#" class="btn btn-icon btn-outline-primary me-2 btn-sm icon-btn">
+                                <span class="fa fa-file-download"></span>
+                            </a>
+                            <a href="#" class="btn btn-icon btn-outline-primary me-2 btn-sm icon-btn">
+                                <span class="fa fa-file-download"></span>
+                            </a>
+
+                            <!-- <a href="#" class="icon-btn">
+                                <span class="fa fa-file-download"></span>
+                            </a>
+                            <a href="#" class="icon-btn">
+                                <span class="fa fa-file-download" style="color: #5278be;"></span>
+                            </a> -->
+                            <!-- !! screen size width lower than 428px !!-->
+                        </div>
+                    </div>
                     <table class="table table-bordered table-hover table-scroll">
                         <thead class="table-secondary">
                             <tr>

@@ -462,10 +462,10 @@ class EmployeeRepository implements EmployeeInterface
 
     public function getInProgressToResetPasswordList($employeeId) {
         if(session()->get('logedinEmployeeRole') > 3) {
-            $totalPendingResetPasswordList = ForgetPassword::where('status', $this->PENDING)->count();
+            $totalPendingResetPasswordList = ForgetPassword::where('status', $this->PENDING)->get();
             return $totalPendingResetPasswordList;
         } 
-        $totalPendingResetPasswordList = ForgetPassword::where('heigher_level_role_id', $employeeId)->where('status', $this->PENDING)->count();
+        $totalPendingResetPasswordList = ForgetPassword::where('heigher_level_role_id', $employeeId)->where('status', $this->PENDING)->get();
         return $totalPendingResetPasswordList;
     }
 }

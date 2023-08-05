@@ -269,8 +269,7 @@ class EmployeeController extends Controller
         $activeEmployees = $this->employeeInterface->getActiveEmployees();
         $birthdayEmployees = $this->employeeInterface->getBirthdayEmployees();
         $resignedEmployees = $this->employeeInterface->getResignedEmployees();
-        $totalPendingResetPasswordList = $this->employeeInterface->getInProgressToResetPasswordList(request()->session()->get('logedinId'));
-        return view("dashboard.dashboard", compact('activeEmployees', 'birthdayEmployees','resignedEmployees', 'totalPendingResetPasswordList'));
+        return view("dashboard.dashboard", compact('activeEmployees', 'birthdayEmployees','resignedEmployees'));
     }
 
     /**
@@ -329,3 +328,4 @@ class EmployeeController extends Controller
         );
     }
 }
+

@@ -6,11 +6,15 @@ use App\Models\Employee;
 use App\Traits\ConstantKeys;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Classes\TemporaryClass;
 use Illuminate\Support\Facades\Hash;
 use App\Interfaces\EmployeeInterface;
 use Illuminate\Support\Facades\Session;
+use App\Classes\PasswordResetRequestEmployee;
 use App\DBTransactions\Employee\UpdateEmployeeV1;
 use App\DBTransactions\PasswordReset\SavePasswordReset;
+use App\DBTransactions\PasswordReset\UpdatePasswordReset;
+use Spatie\LaravelIgnition\Http\Requests\UpdateConfigRequest;
 
 class PasswordResetController extends Controller
 {
@@ -58,8 +62,6 @@ class PasswordResetController extends Controller
 
     public function resetPassword(Request $request)
     {
-        $employee = $this->employeeInterface->getEmployeeById($request->id);
-        $employee->password = Hash::make($request->passowrd);
         $update = Employee::where('id', $request->id)->update(['password' =>  Hash::make($request->password)]);
         if ($update) {
             return new Response(view("authentication.login")->with("success", "Password reset success.")->render());
@@ -75,6 +77,40 @@ class PasswordResetController extends Controller
             return new Response(view("authentication.login")->with("success", "Request reset password to admin success.")->render());
         }
         return new Response(view("authentication.login")->with("error", "Server error encounter!")->render());
+    }
+    public function getPendingPasswordResetEmployeesForm()
+    {
+        $pendingResetPasswordList = $this->employeeInterface->getInProgressToResetPasswordList(request()->session()->get('logedinId'));
+        $pendingEmployeeList = [];
+        foreach ($pendingResetPasswordList as $pendingResetPassword) {
+            $employee = $this->employeeInterface->getEmployeesByIdOptionalColumns(['id', 'employee_id', 'name', 'email'], $pendingResetPassword->employee_id);
+            $heigherLevelEmployee = $this->employeeInterface->getEmployeesByIdOptionalColumns(['id', 'employee_id', 'name', 'email'], $pendingResetPassword->heigher_level_role_id);
 
+            $pendingEmployee = new PasswordResetRequestEmployee($employee->id, $employee->name, $employee->email, $employee->employee_id, $heigherLevelEmployee->id, $heigherLevelEmployee->name, $heigherLevelEmployee->email, $heigherLevelEmployee->employee_id);
+            array_push($pendingEmployeeList, $pendingEmployee);
+        }
+        return view('employee.pending-password-reset-form', compact('pendingEmployeeList'));
+    }
+
+    public function memberPasswordReset(Request $request)
+    {
+        $requestPasswordResetEmployeeId = $request->request_id;
+        $requestPasswordResetEmployeeEmail = $request->request_employee_email;
+        $heigherLevelEmployeeId = $request->heigher_level_id;
+        $heigherLevelEmployeeEmail = $request->heigher_level_employee_email;
+        $resetPassword = $request->reset_password;
+        $update = Employee::where('id', $requestPasswordResetEmployeeId)->update(['password' =>  Hash::make($resetPassword)]);
+        if ($update) {
+            $updatePasswordReset = new UpdatePasswordReset($requestPasswordResetEmployeeId, $heigherLevelEmployeeId);
+            $updateStatus = $updatePasswordReset->executeProcess();
+            if ($updateStatus) {
+                Session::flash("success", "Password reset success.");
+                return redirect()->back();
+            }
+            Session::flash("saveError", "Server error encounter!");
+            return redirect()->back();
+        }
+        Session::flash("saveError", "Server error encounter!");
+        return redirect()->back();
     }
 }

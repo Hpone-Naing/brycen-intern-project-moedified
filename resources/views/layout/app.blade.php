@@ -21,6 +21,7 @@
   data-template="vertical-menu-template-free"
 >
   <head>
+    
   <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -97,6 +98,8 @@
     <script src="/assets/js/dashboards-analytics.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- Custom JS -->
+    <script src="/js/epm.js"></script>
   </body>
 </html>

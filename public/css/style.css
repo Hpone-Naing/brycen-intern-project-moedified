@@ -1,0 +1,476 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    /* background-image: url('../company/background.jpg'); */
+    background-repeat: no-repeat;
+}
+
+.bottom-border {
+    border: none;
+    border-bottom: 1px solid #1d1616;
+    border-radius: 0;
+    box-shadow: none;
+  }
+.container {
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+}
+
+.login-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-input{
+        border: none;
+          border-bottom-color: currentcolor;
+          border-bottom-style: none;
+          border-bottom-width: medium;
+        border-bottom: 1px solid #1d1616;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 10px;
+        background: inherit;
+        width: 330px;
+}
+.input {
+    /* padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px; */
+    border: none;
+    border-bottom: 1px solid #1d1616;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 10px;
+    background: inherit;
+    width: 600px;
+}
+
+input[type="submit"] {
+    padding: 12px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .login-container {
+        padding: 20px;
+    }
+}
+
+/* 
+*
+* login form toogle password icon
+*/
+.toggle-pwd {
+    cursor: pointer;
+    position: relative;
+    right: -300px;
+    top: -25px;
+}
+
+/*
+* show error message will disappear after 3.5 ses
+*/
+.hide-message {
+    animation: hideAnimation 0s ease-in 3.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes hideAnimation {
+    to {
+        opacity: 0;
+        width: 0px;
+        height: 0px;
+    }
+}
+
+/*
+* for input file type with circle shape
+*/
+.file-input {
+   /* position: absolute; */
+   display: inline-block;
+   cursor: pointer;
+   overflow: hidden;
+   border-radius: 50%;
+   width: 130px;
+   height: 130px;
+   top: 0px;
+   background-color: #fff;;
+   box-shadow: 0 2px 4px rgba(26, 31, 32, 0.72);
+   text-align: center;
+}
+
+/* Styling for the file input label */
+.file-input-label {
+    display: block;
+    margin-top: 50px;
+}
+
+/* Hide the actual file input */
+.file-input input[type="file"] {
+    position: relative;
+    left: -9999px;
+}
+
+#preview {
+    width: 130px;
+    height: 130px;
+    position: relative;
+    left: 0px;
+    top: -103px
+}
+
+/*
+* Detail Page
+*/
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+.employee-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.employee-details {
+    margin-bottom: 10px;
+}
+
+label {
+    display: inline-block;
+    width: 200px;
+}
+
+.field-value {
+    display: inline-block;
+}
+
+.card-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* height: 100vh;  */
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;*/
+}
+
+.card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgb(119, 136, 101);
+    width: 100%;
+    max-width: 800px;
+    padding: 30px;
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;  */
+  
+}
+
+/*
+*for save form
+*/
+.form-card-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* height: 100vh;  */
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;*/
+}
+
+.form-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgb(55, 164, 244);
+    width: 100%;
+    max-width: 800px;
+    padding: 30px;  
+    position: relative;
+    bottom: 40px;
+    animation: formSlideIn 0.5s forwards;
+    display: none;
+}
+
+/*
+*for save form edit form
+*/
+.edit-form-card-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* height: 300vh;  */
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;*/
+}
+
+.edit-form-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgb(119, 136, 101);
+    width: 100%;
+    max-width: 800px;
+    padding: 30px;  
+    position: relative;
+    bottom: 40px;
+    animation: formSlideIn 0.5s forwards;
+    margin-top: 100px;
+}
+
+
+/*
+* alert box
+*/
+.alert-box-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.alart-box-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 200px;
+    animation: slideIn 0.5s forwards;
+    background-color: #fafffe;
+    box-shadow: 0 2px 5px rgba(102, 41, 41, 0.61);
+    border: 1px solid #c8acac;
+    padding: 20px;
+    text-align: center;
+    display: none;
+}
+
+.alert-msg-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: red;
+}
+
+@keyframes slideIn {
+    0% {
+      top: -100%;
+    }
+    100% {
+      top: 50%;
+    }
+  }
+  
+
+#window-close {
+    padding: 20px;
+    cursor: pointer;
+}
+
+#reset {
+    padding: 20px;
+cursor: pointer;
+float: right;
+position: relative;
+left: 650px;
+}
+
+#popupBox {
+    position: fixed;
+    top: -100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    animation: slideIn 0.5s forwards;
+  }
+  
+  @keyframes slideIn {
+    0% {
+      top: -100%;
+    }
+    100% {
+      top: 50%;
+    }
+  }
+
+  @keyframes formSlideIn {
+    0% {
+      top: -100%;
+    }
+    100% {
+      top: -10%;
+    }
+  }
+  
+  .inline-container {
+    /* width: 100%;
+    margin: 0 auto;
+    background-color: inherit;
+    align-items: center;
+    display: flex;
+    justify-content: center; */
+
+
+    width: 100%;
+    margin: 0 auto;
+    background-color: inherit;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgb(28, 215, 171);
+    /* width: 800%; */
+    /* max-width: 800px; */
+    padding: 30px;
+  }
+
+.box {
+    display: inline-block;
+    background-color: inherit;
+    margin-right: 10px;
+}
+
+.search-icon {
+    position: relative;
+    right: 40px;
+    cursor: pointer;
+}
+
+.no-data-found {
+    color:red; 
+    padding:10px; 
+    margin-top:100px;
+    background:red;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgb(26, 26, 25);
+    text-align: center;
+    /* width: 800%; */
+    /* max-width: 800px; */
+    /* padding: 30px; */
+}
+
+.require::before {
+    content : "*";
+    color: red;
+    position:relative; 
+    bottom:-30px;
+}
+
+/*
+* alert box
+*/
+.project-remove-box-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.project-remove-box-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 250px;
+    animation: slideIn 0.5s forwards;
+    background-color: #fafffe;
+    box-shadow: 0 2px 5px rgba(102, 41, 41, 0.61);
+    border: 1px solid #c8acac;
+    padding: 20px;
+    text-align: center;
+    display: none;
+}
+
+/*
+* alert box
+*/
+.project-add-box-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.project-add-box-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500;
+    height: 255px;
+    animation: slideIn 0.5s forwards;
+    background-color: #fafffe;
+    box-shadow: 0 2px 5px rgba(102, 41, 41, 0.61);
+    border: 1px solid #c8acac;
+    padding: 20px;
+    text-align: center;
+    display: none;
+}
+
+.alert-msg-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: rgb(25, 0, 255);
+}
+
+/**
+* drag and drop multiple files
+*/
+#drop-area {
+    width: 600px;
+    height: 150px;
+    border: 2px dashed #ccc;
+    text-align: center;
+    padding-top: 50px;
+    cursor: pointer;
+  }
+  
+  .drop-message {
+    font-size: 18px;
+  }
+  
+  #drop-area.dragging {
+    background-color: #f7f7f7;
+  }
+  

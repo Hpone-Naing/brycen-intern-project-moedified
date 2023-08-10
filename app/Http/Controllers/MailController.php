@@ -1,42 +1,57 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Requests;
 
+use Exception;
+use App\Traits\ConstantKeys;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Mail;
+use App\Services\MailServices;
 
-class MailController extends Controller {
-   public function basic_email() {
-      $data = array('name'=>"ဂုတ်မွန်ကြိ");
-   
-      Mail::send(['text'=>'mail'], $data, function($message) {
-         $message->to('phlar1211@gmail.com', 'Tutorials Point')->subject
-            ('Laravel Basic Testing Mail');
-         $message->from('hponenaingtun@gmail.com','Hpone Naing Tun');
-      });
-      echo "Basic Email Sent. Check your inbox.";
-   }
-   public function html_email() {
-      $data = array('name'=>"ဂုတ်မွန်ကြိ");
-      Mail::send('mail', $data, function($message) {
-         $message->to('eimonkyaw5521@gmail.com', 'Tutorials Point')->subject
-            ('Laravel HTML Testing Mail');
-         $message->from('hponenaingtun@gmail.com','Hpone Naing Tun');
-      });
-      echo "HTML Email Sent. Check your inbox.";
-   }
-   public function attachment_email() {
-      $data = array('name'=>"ဂုတ်မွန်ကြိ");
-      Mail::send('mail', $data, function($message) {
-         $message->to('phlar1211@gmail.com', 'Tutorials Point')->subject
-            ('Laravel Testing Mail with Attachment');
-         $message->attach('C:\laravel-master\laravel\public\uploads\image.png');
-         $message->attach('C:\laravel-master\laravel\public\uploads\test.txt');
-         $message->from('hponenaingtun@gmail.com','Hpone Naing Tun');
-      });
-      echo "Email Sent with attachment. Check your inbox.";
-   }
+class MailController extends Controller
+{
+    use ConstantKeys;
+    protected  $mailServices;
+
+    /**
+     * Constructor to assign EmployeeInterface
+     */
+    public function __construct(MailServices $mailServices)
+    {
+        $this->mailServices = $mailServices;
+    }
+    public function sendBirthdayWishMail(Request $request)
+    {
+
+        $emails = explode(",",  $request->emails);
+
+        $mailServices = $this->mailServices;
+        $mailServices->setMailTemplate('mail');
+        $mailServices->setMailFrom($this->DEFAULT_EMAIL);
+        $mailServices->setSenderName($this->DEFAULT_SENDER_NAME);
+        $mailServices->setMailReceiverName($request->birthay_person_name);
+        $mailServices->setMailSubject("Happy Birthday! " . $request->birthay_person_name);
+        $mailContents = [
+            'name' => $request->birthay_person_name,
+            'content' => 'A wish for you on your birthday, whatever you ask may you receive, whatever you seek may you find, whatever you wish may it be fulfilled on your birthday and always. Happy birthday!',
+        ];
+        $mailServices->setmailDatas($mailContents);
+        $attachments = ['company/for-employees/birthdaywish.jpg'];
+        try {
+            $mailServices->sendAttachmentEmail($emails, $attachments);
+            return response()->json(
+                [
+                    "code" => 200,
+                    "status" => "success",
+                ]
+            );
+        } catch(Exception $e) {
+            return response()->json(
+                [
+                    "code" => 500,
+                    "status" => "error",
+                ]
+            );
+        }
+        
+    }
 }
-

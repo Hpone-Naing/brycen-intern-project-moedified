@@ -13,10 +13,10 @@ use App\Models\ForgetPassword;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * Update PasswordReset
+ * Update ForgetPassword table
  *
  * @author  Hpone Naing Htun
- * @create  2023/06/23
+ * @create  2023/08/04
  */
 class UpdatePasswordReset extends DBTransaction
 {
@@ -33,9 +33,9 @@ class UpdatePasswordReset extends DBTransaction
     }
 
     /**
-     * update PasswordReset
+     * update forget_passwored table
      * @author HponeNaingTun
-     * @create 22/06/2023
+     * @create 04/08/2023
      * @return associative array
      */
     public function process()

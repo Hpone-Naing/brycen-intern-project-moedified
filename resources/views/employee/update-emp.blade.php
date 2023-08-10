@@ -29,6 +29,19 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
 <div class="content-wrapper">
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
+        @if ($successMessage = Session::get("success"))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            {{$successMessage}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if ($errorMessage = Session::get("saveError"))
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            {{$errorMessage}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Update</span> Employee</h4>
 
         <!-- Basic Layout & Basic with Icons -->
@@ -69,6 +82,9 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
                                         <input type="text" class="form-control" id="basic-icon-default-fullname" name="name" value="{{ $employee->name }}" placeholder="Name" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
                                     </div>
                                 </div>
+                                @error('name')
+                                <div class="alert alert-danger hide">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label require-field" for="basic-icon-default-fullname">NRC</label>
@@ -78,6 +94,9 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
                                         <input type="text" class="form-control" id="basic-icon-default-fullname" name="nrc" value="{{ $employee->nrc }}" placeholder="NRC" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
                                     </div>
                                 </div>
+                                @error('nrc')
+                                <div class="alert alert-danger hide">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label require-field" for="basic-icon-default-email">Email</label>
@@ -88,6 +107,9 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
                                         <span id="basic-icon-default-email2" class="input-group-text">@example.com</span>
                                     </div>
                                     <div class="form-text">You can use letters, numbers & periods</div>
+                                    @error('email')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -97,6 +119,9 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
                                         <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-phone"></i></span>
                                         <input type="text" id="basic-icon-default-phone" name="phone" class="form-control phone-mask" value="{{ $employee->phone }}" placeholder="0912345678" aria-label="0912345678" aria-describedby="basic-icon-default-phone2" />
                                     </div>
+                                    @error('phone')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -112,6 +137,9 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
                                             <label class="form-check-label" for="inlineRadio1">Female</label>
                                         </div>
                                     </div>
+                                    @error('gender')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -122,6 +150,9 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
                                         <input type="date" name="date_of_birth" id="basic-icon-default-phone" class="form-control phone-mask" value="{{ $employee->date_of_birth }}" placeholder="Date of Birth" aria-label="Date of Birth" aria-describedby="basic-icon-default-phone2" />
                                     </div>
                                 </div>
+                                @error('date_of_birth')
+                                <div class="alert alert-danger hide">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 form-label require-field" for="basic-icon-default-message">Address</label>
@@ -131,6 +162,9 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
                                         <textarea id="basic-icon-default-message" class="form-control" name="address" placeholder="Hi, Do you have a moment to talk Joe?" aria-label="Hi, Do you have a moment to talk Joe?" aria-describedby="basic-icon-default-message2">{{ $employee->address }}</textarea>
                                     </div>
                                 </div>
+                                @error('address')
+                                <div class="alert alert-danger hide">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 form-label require-field" for="basic-icon-default-message">Role</label>
@@ -144,6 +178,9 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
                                             <option value="4" {{$role == 4 ? 'selected' : '' }}>General Manager</option>
                                         </select>
                                     </div>
+                                    @error('role')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -159,6 +196,9 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
                                             <label class="form-check-label" for="inlineRadio1">Parmanent</label>
                                         </div>
                                     </div>
+                                    @error('employment_type')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -174,6 +214,9 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
                                             <label class="form-check-label" for="inlineCheckbox1">Japan</label>
                                         </div>
                                     </div>
+                                    @error('languages')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -205,6 +248,9 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
                                             <label class="form-check-label" for="inlineCheckbox1">Laravel</label>
                                         </div>
                                     </div>
+                                    @error('programming_languages')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -220,6 +266,10 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
                                         </select>
                                     </div>
                                 </div>
+                                @error('career_part')
+                                <div class="alert alert-danger hide">{{ $message }}</div>
+                                @enderror
+
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 form-label require-field" for="basic-icon-default-message">Level</label>
@@ -233,6 +283,9 @@ $programmingLanguageKeyList = array_column($programmingLanguages, 'id');
                                             <option value="4" {{$level == 4 ? 'selected' : '' }}>Senior Engineer</option>
                                         </select>
                                     </div>
+                                    @error('level')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 

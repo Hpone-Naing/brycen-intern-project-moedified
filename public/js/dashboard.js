@@ -10,10 +10,30 @@ async function fetchApi(url) {
         });
         const data = await response.json();
         employeeId = data.data;
-
         return employeeId;
     } catch (error) {
         console.error('Error:', error);
+        throw error;
+    }
+}
+
+async function post(url, requestBody) {
+    try {
+        console.log(requestBody);
+        const response = await fetch(url, {
+            method: 'POST', // Use the POST method
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+        });
+        console.log("before response");
+        const result = await response.json();
+        console.log(result)
+        console.log("after response");
+        return result;
+    } catch (error) {
         throw error;
     }
 }
@@ -457,3 +477,36 @@ function levelAnalytics(results) {
 /**
  *  / Working Environment Level Analytics
  */
+
+
+/**
+ * Send brithday wish
+ */
+function sendBirthdayWish() {
+
+    let birthdayPersonEmail = {};
+    let emails = '';
+    let birthdayPersons = $("[name='birthday_person']");
+    birthdayPersons.each(function() {
+         emails += $(this).data("birthday-person-emil") + ",";
+    });
+    birthdayPersonEmail.emails = emails.replace(/,$/, '');;
+
+    post("api/send-birthday-person-mail",birthdayPersonEmail)
+    .then(result => {
+        console.log('Mail sending result:', result);
+        let alertMessage = $("[name='alert-message']");
+        if(result.code == 200) {
+            alertMessage.show();
+            alertMessage.find('[name="close-alert-msg"]').before('Birthday Wish mail sending successful. ');
+            alertMessage.addClass('alert-success');
+        } else {
+            alertMessage.show();
+            alertMessage.find('[name="close-alert-msg"]').before('Server error encounter. ');
+            alertMessage.addClass('alert-danger');
+        }
+    })
+    .catch(error => {
+        console.error('Error sending mail:', error);
+    });
+}

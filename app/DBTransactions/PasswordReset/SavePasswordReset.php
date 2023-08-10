@@ -13,6 +13,12 @@ use App\DBTransactions\EmployeePasswordReset\SaveEmployeePasswordReset;
 use App\DBTransactions\EmployeeProgrammingLanguage\SaveEmployeeProgrammingLanguage;
 use App\Models\ForgetPassword;
 
+/**
+ * Save ForgetPassword table
+ *
+ * @author  Hpone Naing Htun
+ * @create  2023/08/04
+ */
 class SavePasswordReset extends DBTransaction
 {
     use ConstantKeys;
@@ -27,9 +33,9 @@ class SavePasswordReset extends DBTransaction
     }
 
     /**
-     * save Project
+     * Save Forget Passsword table
      * @author HponeNaingTun
-     * @create 28/06/2023
+     * @create 04/08/2023
      * @return associative array
      */
     public function process()

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProjectAssignmentController;
 
 /*
@@ -29,3 +30,6 @@ Route::get("projects/all", [ProjectAssignmentController::class, "getAllProjects"
 # add new feature
 Route::get("employees/get-active-employees", [EmployeeController::class, "getActiveEmployees"]);
 Route::get("employees/get-passwords-request-pending-employees/{currentLoginEmployeeId}", [EmployeeController::class, "getInProgressToResetPasswordList"]);
+Route::post("send-birthday-person-mail", [MailController::class, "sendBirthdayWishMail"]);
+
+

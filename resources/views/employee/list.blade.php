@@ -126,11 +126,37 @@ $loggedInUserId = request()->session()->get('logedinEmployeeId')
                                     <td style="{{ ($loggedInUserRole < 2) ? 'display:none' : '' }}">
                                         <a href="detail-pages?employee_id={{$employee->id}}"><i class="fa-regular fa-eye fa-xl ms-2" data-toggle="tooltip" data-placement="top" title="{{__('messages.employees_detail')}}" style="color:#244a26"></i></a>
                                         <a class="ms-4" href="edit-pages?employee_id={{$employee->id }}" style="{{ ($loggedInUserRole < 3) ? 'display:none' : '' }}"><i class="fas fa-edit fa-xl ms-2" data-toggle="tooltip" data-placement="top" title="{{__('messages.employees_edit')}}" style="color:blue"></i></a>
-                                        <a type="button" class="ms-4" data-bs-toggle="modal" data-bs-target="#modalCenter{{$employee->id}}" style="{{ ($loggedInUserRole < 3) ? 'display:none' : '' }}">
+                                        <a type="button" class="ms-4" data-bs-toggle="modal" data-bs-target="#deleteModel{{$employee->id}}" style="{{ ($loggedInUserRole < 3) ? 'display:none' : '' }}">
                                             <i class="fa fa-trash fa-xl ms-2" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{__('messages.employees_delete')}}" style="color:red"></i>
                                         </a>
                                     </td>
                                 </tr>
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="deleteModel{{$employee->id ?? ''}}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Are you sure want to delete this employee?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <form method="POST" action="delete-employees">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="employee_id" value="{{ $employee->id ?? ''}}">
+                                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/ Delete Modal -->
                                 @endforeach
                             </tbody>
                             @endif
@@ -138,33 +164,10 @@ $loggedInUserId = request()->session()->get('logedinEmployeeId')
                 </div>
             </div>
         </div>
+        {!! $employees->links() !!}
+
         <!--/ Bordered Table -->
-        <!-- Delete Modal -->
-        <div class="modal fade" id="modalCenter{{$employee->id ?? ''}}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure want to delete this employee?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <form method="POST" action="delete-employees">
-                            @csrf
-                            @method('DELETE')
-                            <input type="hidden" name="employee_id" value="{{ $employee->id ?? ''}}">
-                            <button type="submit" class="btn btn-primary">Delete</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--/ Delete Modal -->
+
 
         <!-- Advance Search Modal -->
         <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">

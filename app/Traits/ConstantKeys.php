@@ -13,6 +13,10 @@ trait ConstantKeys
      */
     public $DEFAULT_PAGINATE_NUMBER = 5;
 
+    public $DEFAULT_EMAIL = "hponenaingtun@gmail.com";
+
+    public $DEFAULT_SENDER_NAME = "Hpone Naing Tun";
+    
     public $LANGUAGE = [
         "1" => "English",
         "2" => "Japanese"

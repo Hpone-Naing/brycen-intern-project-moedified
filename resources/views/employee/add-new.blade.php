@@ -1,7 +1,7 @@
 @extends('layout.template-ui')
 @section('content')
 @php
-    $loggedInUserRole = request()->session()->get('logedinEmployeeRole');
+$loggedInUserRole = request()->session()->get('logedinEmployeeRole');
 @endphp
 <!-- Content wrapper -->
 <div class="content-wrapper">
@@ -51,6 +51,9 @@
                                         <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                         <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                     </div>
+                                    @error('password')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -60,6 +63,9 @@
                                         <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
                                         <input type="text" class="form-control" id="basic-icon-default-fullname" name="name" placeholder="Name" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
                                     </div>
+                                    @error('name')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -69,6 +75,9 @@
                                         <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
                                         <input type="text" class="form-control" id="basic-icon-default-fullname" name="nrc" placeholder="NRC" aria-label="John Doe" aria-describedby="basic-icon-default-fullname2" />
                                     </div>
+                                    @error('nrc')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -79,6 +88,9 @@
                                         <input type="text" id="basic-icon-default-email" name="email" class="form-control" placeholder="john.doe" aria-label="john.doe" aria-describedby="basic-icon-default-email2" />
                                         <span id="basic-icon-default-email2" class="input-group-text">@example.com</span>
                                     </div>
+                                    @error('email')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                     <div class="form-text">You can use letters, numbers & periods</div>
                                 </div>
                             </div>
@@ -89,6 +101,9 @@
                                         <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-phone"></i></span>
                                         <input type="text" id="basic-icon-default-phone" name="phone" class="form-control phone-mask" placeholder="0912345678" aria-label="0912345678" aria-describedby="basic-icon-default-phone2" />
                                     </div>
+                                    @error('phone')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -104,6 +119,9 @@
                                             <label class="form-check-label" for="inlineRadio1">Female</label>
                                         </div>
                                     </div>
+                                    @error('gender')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -113,6 +131,9 @@
                                         <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-phone"></i></span>
                                         <input type="date" name="date_of_birth" id="basic-icon-default-phone" class="form-control phone-mask" placeholder="Date of Birth" aria-label="Date of Birth" aria-describedby="basic-icon-default-phone2" />
                                     </div>
+                                    @error('date_of_birth')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -122,6 +143,9 @@
                                         <span id="basic-icon-default-message2" class="input-group-text"><i class="bx bx-comment"></i></span>
                                         <textarea id="basic-icon-default-message" class="form-control" name="address" placeholder="Hi, Do you have a moment to talk Joe?" aria-label="Hi, Do you have a moment to talk Joe?" aria-describedby="basic-icon-default-message2"></textarea>
                                     </div>
+                                    @error('address')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -137,6 +161,9 @@
                                             <label class="form-check-label" for="inlineRadio1">Parmanent</label>
                                         </div>
                                     </div>
+                                    @error('employment_type')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -152,6 +179,9 @@
                                             <option value="4" style="{{ ($loggedInUserRole < 4) ? 'display:none' : '' }}">General Manager</option>
                                         </select>
                                     </div>
+                                    @error('role')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -167,6 +197,9 @@
                                             <label class="form-check-label" for="inlineCheckbox1">Japan</label>
                                         </div>
                                     </div>
+                                    @error('languages')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -198,6 +231,9 @@
                                             <label class="form-check-label" for="inlineCheckbox1">Laravel</label>
                                         </div>
                                     </div>
+                                    @error('programming_languages')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -212,6 +248,9 @@
                                             <option value="4">Mobile</option>
                                         </select>
                                     </div>
+                                    @error('career_part')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -226,10 +265,11 @@
                                             <option value="4">Senior Engineer</option>
                                         </select>
                                     </div>
+                                    @error('level')
+                                    <div class="alert alert-danger hide">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
-
-
                             <div class="row justify-content-end">
                                 <div class="col-sm-10">
                                     <button type="submit" class="btn btn-primary">Submit</button>

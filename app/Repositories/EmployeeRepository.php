@@ -3,13 +3,14 @@
 namespace App\Repositories;
 
 
+use Carbon\Carbon;
 use App\Models\Employee;
 use App\Traits\ResponseAPI;
 use App\Traits\ConstantKeys;
 use Illuminate\Http\Request;
+use App\Models\ForgetPassword;
 use Illuminate\Support\Facades\Auth;
 use App\Interfaces\EmployeeInterface;
-use App\Models\ForgetPassword;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Session\Session;
 
@@ -89,17 +90,20 @@ class EmployeeRepository implements EmployeeInterface
         }
     }
 
-    private function isAllSearchValueEmpty($request) {
+    private function isAllSearchValueEmpty($request)
+    {
         $searchKeys = $request->keys();
         foreach ($searchKeys as $searchKey) {
-            $inputValue = $request->all()[$searchKey];
-            if (isset($inputValue)) {
-                return false;
+            if ($searchKey != "page") {
+                $inputValue = $request->all()[$searchKey];
+                if (isset($inputValue)) {
+                    return false;
+                }
             }
         }
         return true;
     }
-    
+
     /**
      * get all employee, if search data exit it will return employee informations that match search data
      * @author HponeNaingTun
@@ -117,25 +121,30 @@ class EmployeeRepository implements EmployeeInterface
             $searchKeys = $request->keys();
             $employees = Employee::query();
             foreach ($searchKeys as $searchKey) {
-                if( isset($request->all()[$searchKey]) ) {
-                    if ($searchKey == 'employee_id' || $searchKey == 'email' || $searchKey == 'name' || $searchKey == 'nrc' || $searchKey == 'address') {
-                        $employees->where($searchKey, 'like', '%' . $request->input($searchKey) . '%');
-                    } else {
-                        $employees->where($searchKey, $request->input($searchKey));
+                #
+                #
+                #
+                if (isset($request->all()[$searchKey])) {
+                    if ($searchKey != 'page') {
+                        if ($searchKey == 'employee_id' || $searchKey == 'email' || $searchKey == 'name' || $searchKey == 'nrc' || $searchKey == 'address') {
+                            $employees->where($searchKey, 'like', '%' . $request->input($searchKey) . '%');
+                        } else {
+                            $employees->where($searchKey, $request->input($searchKey));
+                        }
                     }
                 }
             }
             $employees = $employees->where('role_id', '<=', $request->session()->get('logedinEmployeeRole'));
             $employees = $employees->paginate($this->DEFAULT_PAGINATE_NUMBER)
-                                   ->appends($request->all());
-        
+                ->appends($request->all());
+
             return $employees;
         }
         $employees = Employee::query();
         $employees = $employees->where('role_id', '<=', $request->session()->get('logedinEmployeeRole'));
         $employees = $employees->paginate($this->DEFAULT_PAGINATE_NUMBER);
         return $employees;
-        
+
         // $careerPart = $request->career_part;
         // $level = $request->level;
         // $employeeId = $request->search;
@@ -320,8 +329,8 @@ class EmployeeRepository implements EmployeeInterface
     public function getEmployeeByIdEgerLoad($id)
     {
         // $employee = Employee::with('projects', 'projects.documentations', 'programmingLanguages')->find($id);
-         $employee = Employee::with('projects', 'employeesProjects.documentations', 'programmingLanguages')->find($id);
-         return $employee;
+        $employee = Employee::with('projects', 'employeesProjects.documentations', 'programmingLanguages')->find($id);
+        return $employee;
 
         // $employee = Employee::with('projects', 'employeeProjects', 'projects.documentations')->find($id);
         // return $employee;
@@ -397,46 +406,75 @@ class EmployeeRepository implements EmployeeInterface
         return $employee;
     }
 
-    # Modified code
+    # -----------add new fetures----------
+
     /**
+     * Get all resigned employees, they have been deleted
+     * 
      * @author HponeNaingTun
      * 
-     * @create 02/08/2023
-     * 
-     * for dashboard 
-     * Get all resigned employees
-     * 
-     * @param   array 
+     * @create 31/07/2023
      * 
      * return array
      * 
      * @access  public
      */
-    public function getResignedEmployees() {
-        return Employee::get();
+    public function getResignedEmployees()
+    {
+        return Employee::withTrashed()->whereNotNull("deleted_at")->get();
     }
 
-    public function getActiveEmployees() {
+    /**
+     * Get all active employees, they have not been deleted
+     * 
+     * @author HponeNaingTun
+     * 
+     * @create 31/07/2023
+     * 
+     * return array
+     * 
+     * @access  public
+     */
+    public function getActiveEmployees()
+    {
         $employees = Employee::get();
         return $employees;
     }
 
-    public function getBirthdayEmployees() {
+    /**
+     * Get all birthday employees. current date == date of birth
+     * 
+     * @author HponeNaingTun
+     * 
+     * @create 31/07/2023
+     * 
+     * return array
+     * 
+     * @access  public
+     */
+    public function getBirthdayEmployees()
+    {
         $activeEmployees = $this->getActiveEmployees();
         $birthdayEmployees = [];
-        foreach ( $activeEmployees as $activeEmployee) {
-            if ( $activeEmployee->date_of_birth == date('Y-m-d')) {
+        foreach ($activeEmployees as $activeEmployee) {
+            $dateOfBirth = Carbon::parse($activeEmployee->date_of_birth)->format("m-d");
+            if ($dateOfBirth == date('m-d')) {
                 array_push($birthdayEmployees, $activeEmployee);
             }
         }
         return $birthdayEmployees;
     }
-    
-        /**
-     * get employee with custom columns of employees table using employee employee_id
+
+    /**
+     * Get an employee by employeeId with custom columns. eg from all columns of employees table, you want only id, name => ['id', 'name']
+     * 
      * @author HponeNaingTun
-     * @create 29/06/2023
-     * @return employee
+     * 
+     * @create 31/07/2023
+     * 
+     * return array
+     * 
+     * @access  public
      */
     public function getEmployeesByEmployeeIdOptionalColumns($columns, $employeeId)
     {
@@ -448,11 +486,18 @@ class EmployeeRepository implements EmployeeInterface
         return $employee;
     }
 
-            /**
-     * get employee with custom columns of employees table using employee employee_id
+    /**
+     * Get all employee by role
+     * 
      * @author HponeNaingTun
-     * @create 29/06/2023
-     * @return employee
+     * 
+     * @create 31/07/2023
+     * 
+     * @param string $role
+     * 
+     * return array
+     * 
+     * @access  public
      */
     public function getEmployeesByRoles($role)
     {
@@ -460,11 +505,25 @@ class EmployeeRepository implements EmployeeInterface
         return $employees;
     }
 
-    public function getInProgressToResetPasswordList($employeeId) {
-        if(session()->get('logedinEmployeeRole') > 3) {
+    /**
+     * Get all password request employees from forgetpassword table where status column = 'pending'
+     * 
+     * @author HponeNaingTun
+     * 
+     * @create 02/08/2023
+     * 
+     * return array
+     * 
+     * @access  public
+     */
+    public function getInProgressToResetPasswordList($employeeId)
+    {
+        # Login employee is general manager(role = 4), he can see all reset password request employees.
+        if (session()->get('logedinEmployeeRole') > 3) {
             $totalPendingResetPasswordList = ForgetPassword::where('status', $this->PENDING)->get();
             return $totalPendingResetPasswordList;
-        } 
+        }
+        # Login employee is lower general manager (role < 4), they can see their associated reset password request employees.
         $totalPendingResetPasswordList = ForgetPassword::where('heigher_level_role_id', $employeeId)->where('status', $this->PENDING)->get();
         return $totalPendingResetPasswordList;
     }

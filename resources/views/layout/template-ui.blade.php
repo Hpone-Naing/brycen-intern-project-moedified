@@ -26,12 +26,26 @@ $loggedInUserRole = request()->session()->get('logedinEmployeeRole');
 
       <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item active">
-          <a href="index" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-            <div data-i18n="Analytics">Dashboard</div>
+        <li class="menu-item active open">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+
+            <div data-i18n="Layouts">Dashboard</div>
           </a>
+          <ul class="menu-sub">
+            <li class="menu-item active">
+              <a href="index" class="menu-link">
+                <div data-i18n="Fluid">Employee</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="project-dashboard" class="menu-link">
+                <div data-i18n="Blank">Project</div>
+              </a>
+            </li>
+          </ul>
         </li>
+
 
         <li class="menu-header small text-uppercase">
           <span class="menu-header-text">Employees</span>

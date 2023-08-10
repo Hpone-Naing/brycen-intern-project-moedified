@@ -260,8 +260,11 @@ class EmployeeController extends Controller
 
     /**
      * show employee dashboard form
+     * 
      * @author HponeNaingTun
-     * @create 31/08/2023
+     * 
+     * @create 31/07/2023
+     * 
      * @return view employee/dashboard/dashboard.blade.php
      */
     public function showDashboard()
@@ -273,10 +276,13 @@ class EmployeeController extends Controller
     }
 
     /**
-     * show employee list form
+     * Get employee list form
+     * 
      * @author HponeNaingTun
-     * @create 31/08/2023
-     * @return view dashboard/dashboard.blade.php
+     * 
+     * @create 31/07/2023
+     * 
+     * @return view employee/list.blade.php
      */
     public function showAllEmployees(Request $request)
     {
@@ -286,9 +292,12 @@ class EmployeeController extends Controller
     }
 
     /**
-     * show add new employee form
+     * Get add new employee form
+     * 
      * @author HponeNaingTun
-     * @create 02/08/2023
+     * 
+     * @create 31/08/2023
+     * 
      * @return view employee/add-new.blade.php
      */
     public function getCreateForm()
@@ -298,10 +307,13 @@ class EmployeeController extends Controller
     }
 
     /**
-     * show add new employee form
+     * Get employee edit form
+     * 
      * @author HponeNaingTun
-     * @create 02/08/2023
-     * @return view employee/add-new.blade.php
+     * 
+     * @create 31/08/2023
+     * 
+     * @return view employee/update-emp.blade.php
      */
     public function getEditForm(Request $request)
     {
@@ -310,10 +322,12 @@ class EmployeeController extends Controller
     }
 
      /**
-     * for javascript api call, it will return match employee informations with optional column lazy load that match id
+     * for javascript api call (For dashboard chart), it will return all employees have not been deleted 
+     * 
      * @author HponeNaingTun
-     * @create 29/06/2023
-     * @param  integer  $id
+     * 
+     * @create 31/08/2023
+     * 
      * @return json format
      */
     public function getActiveEmployees()

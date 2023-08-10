@@ -68,6 +68,12 @@
                                         </div>
                                         <div class="row">
                                             <div class="col mb-3">
+                                                <label for="nameWithTitle" class="form-label">Your Name</label>
+                                                <input type="text" name="heigher_level_employee_name" class="form-control" value="{{$pendingEmployee->heighLevelEmployeeName}}" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col mb-3">
                                                 <label for="nameWithTitle" class="form-label">Your Email</label>
                                                 <input type="text" name="heigher_level_employee_email" class="form-control" value="{{$pendingEmployee->heighLevelEmployeeEmail}}" readonly />
                                             </div>
